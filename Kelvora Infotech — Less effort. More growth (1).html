@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kelvora Infotech — Less effort. More growth.</title>
+<style>
+:root{--bg1:#171033;--bg2:#0a0818;--am:#fbbf24;--te:#2dd4bf;--m:#a5a1c8;--ln:#3b2f73;--tx:#f4f2ff;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;color:var(--tx);font-family:system-ui,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 50% 35%,var(--bg1),var(--bg2) 62%,#030209)}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,#dots a:focus-visible{outline:2px solid var(--am);outline-offset:2px}
+.b{border:1px solid var(--ln);background:rgba(14,10,36,.82);border-radius:999px;padding:9px 16px;font-weight:600;backdrop-filter:blur(8px);transition:border-color .2s,box-shadow .2s}
+.b:hover{border-color:var(--am);box-shadow:0 0 16px rgba(251,191,36,.3)}
+#top{position:fixed;top:0;left:0;right:0;padding:calc(14px + env(safe-area-inset-top,0px)) 20px 0;display:flex;align-items:center;justify-content:space-between;gap:10px;z-index:3}
+.brand{font-weight:800;font-size:18px;letter-spacing:.04em}.brand span{color:var(--m);font-weight:500;margin-left:8px;font-size:13px;letter-spacing:0}
+#seg{display:flex;gap:4px;padding:4px;border:1px solid var(--ln);border-radius:999px;background:rgba(14,10,36,.82)}
+#seg button{border:0;background:none;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:600;color:var(--m)}
+#seg button.on{background:linear-gradient(90deg,var(--am),var(--te));color:#1a1035}
+#num{font-size:13px;color:var(--m);min-width:54px;text-align:right}
+#bar{position:fixed;top:calc(58px + env(safe-area-inset-top,0px));left:20px;right:20px;height:3px;background:#1d1645;border-radius:3px;overflow:hidden;z-index:3}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--am),var(--te))}
+#cap{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(800px,calc(100% - 28px));padding:16px 20px 14px;border:1px solid var(--ln);border-radius:18px;background:rgba(10,7,26,.84);backdrop-filter:blur(14px);z-index:3;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+#cap.in>*:not(#nav){animation:up .5s both}
+@keyframes up{from{opacity:0;transform:translateY(10px)}}
+#tg{font-size:13px;color:var(--te);margin-bottom:4px}
+#tt{font-size:22px;line-height:1.2;margin-bottom:6px}
+#tx{font-size:14.5px;line-height:1.55;color:#d6d2f0;margin-bottom:12px;max-width:70ch}
+#nav{display:flex;align-items:center;gap:8px}
+#nav .b{padding:8px 15px}
+#dots{display:flex;gap:6px;margin-left:auto}
+#dots a{width:9px;height:9px;border-radius:50%;background:#2a2060;cursor:pointer;transition:.25s}
+#dots a.on{background:var(--am);box-shadow:0 0 10px var(--am);transform:scale(1.3)}
+body.manual #pp{display:none}
+#splash{position:fixed;inset:0;z-index:9;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:radial-gradient(ellipse at 50% 45%,rgba(10,7,26,.5),rgba(3,2,9,.93));backdrop-filter:blur(4px);transition:opacity .8s,visibility .8s}
+#splash.off{opacity:0;visibility:hidden}
+#splash>*{animation:up .9s both}
+#splash h1{font-size:clamp(44px,10vw,104px);font-weight:900;letter-spacing:.06em;background:linear-gradient(90deg,#fff,var(--am) 55%,var(--te));-webkit-background-clip:text;background-clip:text;color:transparent;animation-delay:.2s}
+#splash p{max-width:580px;color:#d6d2f0;line-height:1.6;margin:10px 0 28px;font-size:16px;animation-delay:.5s}
+#splash .row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation-delay:.8s}
+#splash .row button{padding:15px 28px;font-size:16px;border-radius:16px;text-align:left}
+#splash small{display:block;font-weight:400;color:var(--m);font-size:12.5px;margin-top:3px}
+#sa{background:linear-gradient(90deg,var(--am),var(--te));color:#1a1035;border-color:transparent}#sa small{color:#3b2f73}
+@media(max-width:700px){.brand span,#dots{display:none}#tt{font-size:18px}#tx{font-size:13px}}
+@media(prefers-reduced-motion:reduce){#splash>*,#cap.in>*{animation:none}}
+</style></head><body>
+<canvas id="c"></canvas>
+<header id="top"><div class="brand">Kelvora<span>Infotech</span></div>
+<div id="seg"><button data-m="auto">▶ Auto play</button><button data-m="manual">Manual</button></div><div id="num">01 / 08</div></header>
+<div id="bar"><i></i></div>
+<section id="cap"><div id="tg"></div><h2 id="tt"></h2><p id="tx"></p>
+<div id="nav"><button class="b" id="pv">‹ Back</button><button class="b" id="pp">⏸ Pause</button><button class="b" id="nx">Next ›</button><button class="b" id="rp" title="Replay scene">↻</button><div id="dots"></div></div></section>
+<div id="splash"><h1>KELVORA</h1>
+<p>We take the manual work out of running a business. See how our AI audit finds the gaps, and how our agents, software and creative team close them.</p>
+<div class="row"><button class="b" id="sa">▶ Auto play<small>Guided tour, about 70 seconds</small></button><button class="b" id="sm">Manual<small>Step through at your own pace</small></button></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);
+if(!window.THREE){$('#splash').innerHTML='<p>Could not load Three.js. Check your connection and reload.</p>';return}
+const T=THREE,R=new T.WebGLRenderer({canvas:$('#c'),antialias:true,alpha:true}),sc=new T.Scene(),cam=new T.PerspectiveCamera(40,1,.1,400);
+sc.add(new T.AmbientLight(0xb8b4d8,1.1));
+const kl=new T.DirectionalLight(0xffffff,1);kl.position.set(8,14,14);sc.add(kl);
+[[0xfbbf24,-12,8],[0x2dd4bf,12,-6]].forEach(l=>{const p=new T.PointLight(l[0],1.3,70);p.position.set(l[1],l[2],10);sc.add(p)});
+const cl=(v,a,b)=>Math.min(b,Math.max(a,v)),eb=p=>{const q=p-1;return 1+2.70158*q*q*q+1.70158*q*q};
+const C={am:"#fbbf24",te:"#2dd4bf",ro:"#fb7185",vi:"#a78bfa",sk:"#38bdf8",gr:"#34d399"};
+const F='system-ui,"Segoe UI",sans-serif',E='"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif',PPU=200;
+
+/* Face texture: icon + title + wrapped lines that shrink to fit */
+function tex(o,w,h){
+  const W=w*PPU|0,H=h*PPU|0,k=document.createElement("canvas");k.width=W;k.height=H;const g=k.getContext("2d");
+  const bg=g.createLinearGradient(0,0,W,H);bg.addColorStop(0,"#33257a");bg.addColorStop(1,"#171040");g.fillStyle=bg;g.fillRect(0,0,W,H);
+  g.fillStyle=o.c;g.globalAlpha=.26;g.fillRect(0,0,W,H);g.globalAlpha=1;
+  g.strokeStyle="rgba(255,255,255,.045)";g.lineWidth=2;
+  for(let x=0;x<W;x+=40){g.beginPath();g.moveTo(x,0);g.lineTo(x,H);g.stroke()}
+  for(let y=0;y<H;y+=40){g.beginPath();g.moveTo(0,y);g.lineTo(W,y);g.stroke()}
+  g.fillStyle=o.c;g.fillRect(0,0,W,12);g.strokeStyle=o.c;g.lineWidth=8;g.strokeRect(4,4,W-8,H-8);
+  g.textAlign="center";g.textBaseline="top";
+  let s=o.k||1,rows,tot;
+  for(let n=0;n<9;n++){
+    rows=[];tot=0;
+    const add=(t,u,wt,col)=>{const px=u*PPU*s,f=wt+" "+px+"px "+F;g.font=f;let ln="";
+      String(t).split(" ").forEach(wd=>{const tt=ln?ln+" "+wd:wd;if(ln&&g.measureText(tt).width>W-80){rows.push({t:ln,f,col,px});tot+=px*1.28;ln=wd}else ln=tt});
+      rows.push({t:ln,f,col,px});tot+=px*1.28};
+    if(o.i){const px=.8*PPU*s;rows.push({t:o.i,f:px+"px "+E,col:"#fff",px});tot+=px*1.28}
+    add(o.t,.4,"800","#fff");
+    (o.l||[]).forEach(l=>add(l,.25,"500",l[0]=="✕"?"#fda4af":l[0]=="✔"?"#6ee7b7":"#d6d2f0"));
+    if(tot<H-50)break;s*=.88;
+  }
+  let y=(H-tot)/2+8;rows.forEach(r=>{g.font=r.f;g.fillStyle=r.col;g.fillText(r.t,W/2,y);y+=r.px*1.28});
+  const t=new T.CanvasTexture(k);t.anisotropy=8;return t;
+}
+function banner(t,s,x,y,w,h,c1){
+  const k=document.createElement("canvas"),W=w*110|0,H=h*110|0;k.width=W;k.height=H;const g=k.getContext("2d");
+  g.textAlign="center";g.textBaseline="middle";
+  const fs=Math.min(H*(s?.5:.7),W/(t.length*.62));g.font="900 "+fs+"px "+F;g.shadowColor=c1;g.shadowBlur=30;
+  const gr=g.createLinearGradient(0,0,W,0);gr.addColorStop(0,"#fff");gr.addColorStop(1,c1);g.fillStyle=gr;g.fillText(t,W/2,s?H*.36:H*.5);
+  if(s){g.shadowBlur=0;g.fillStyle="#d6d2f0";g.font="500 "+Math.min(H*.17,W/(s.length*.52))+"px "+F;g.fillText(s,W/2,H*.78)}
+  const m=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({map:new T.CanvasTexture(k),transparent:true,depthWrite:false,toneMapped:false,fog:false}));m.position.set(x,y,.3);return m;
+}
+function card(x,y,w,h,o,d){
+  const col=new T.Color(o.c),sd=new T.MeshStandardMaterial({color:0x120c30,emissive:col,emissiveIntensity:.7,roughness:.35,metalness:.7}),
+  fr=new T.MeshBasicMaterial({map:tex(o,w,h),toneMapped:false,fog:false}),
+  m=new T.Mesh(new T.BoxGeometry(w,h,d||.8),[sd,sd,sd,sd,fr,sd]),
+  ed=new T.LineSegments(new T.EdgesGeometry(m.geometry),new T.LineBasicMaterial({color:col})),
+  hl=new T.Mesh(new T.BoxGeometry(w+.3,h+.3,(d||.8)+.3),new T.MeshBasicMaterial({color:col,transparent:true,opacity:.18,side:T.BackSide,blending:T.AdditiveBlending,depthWrite:false})),
+  g=new T.Group();g.add(m,ed,hl);g.position.set(x,y,0);return g;
+}
+const sph=new T.SphereGeometry(.18,14,14);
+function flow(a,b,c){const g=new T.Group(),ps=[0,1,2].map(()=>{const s=new T.Mesh(sph,new T.MeshBasicMaterial({color:c}));g.add(s);return s});
+  g.add(new T.Line(new T.BufferGeometry().setFromPoints([a,b]),new T.LineBasicMaterial({color:c,transparent:true,opacity:.7})));
+  g.userData.run=st=>ps.forEach((s,i)=>s.position.lerpVectors(a,b,(st*.45+i/3)%1));return g}
+
+/* ===== Procedural 3D models, one animated world behind each scene ===== */
+R.toneMapping=T.ACESFilmicToneMapping;R.toneMappingExposure=1.15;sc.fog=new T.FogExp2(0x0a0818,.011);
+const rnd=(a,b)=>a+Math.random()*(b-a),G=()=>new T.Group();
+const mat=(c,e,o)=>new T.MeshStandardMaterial(Object.assign({color:c,emissive:c,emissiveIntensity:e,roughness:.3,metalness:.6},o));
+const Ms=(g,c,e,o)=>new T.Mesh(g,mat(c,e,o));
+const WF=(g,c,op)=>new T.LineSegments(new T.EdgesGeometry(g),new T.LineBasicMaterial({color:c,transparent:true,opacity:op}));
+const sp=new Float32Array(1200);for(let i=0;i<1200;i+=3){sp[i]=rnd(-45,45);sp[i+1]=rnd(-30,30);sp[i+2]=rnd(-90,-10)}
+const stars=new T.Points(new T.BufferGeometry().setAttribute('position',new T.BufferAttribute(sp,3)),new T.PointsMaterial({color:0xcfc9ff,size:.22,transparent:true,opacity:.75,fog:false}));sc.add(stars);
+function robot(){const g=G(),bd=Ms(new T.BoxGeometry(1.3,1.3,.9),0x38bdf8,.35),h=Ms(new T.BoxGeometry(1.2,.9,.9),0xe0e7ff,.15),e1=Ms(new T.SphereGeometry(.14,10,10),0x2dd4bf,2),e2=e1.clone(),an=Ms(new T.CylinderGeometry(.04,.04,.5,6),0xfbbf24,.6),bl=Ms(new T.SphereGeometry(.12,10,10),0xfbbf24,2),ar=Ms(new T.BoxGeometry(.28,.9,.28),0x38bdf8,.35),al=ar.clone();
+ h.position.y=1.3;e1.position.set(-.28,1.35,.46);e2.position.set(.28,1.35,.46);an.position.y=1.95;bl.position.y=2.25;ar.position.x=.85;al.position.x=-.85;
+ g.add(bd,h,e1,e2,an,bl,ar,al);g.userData.eyes=[e1,e2];g.scale.setScalar(.9);return g}
+function gear(r,n,c){const g=G(),b=Ms(new T.CylinderGeometry(r,r,.7,28),c,.5);b.rotation.x=Math.PI/2;g.add(b);
+ for(let i=0;i<n;i++){const a=i/n*6.283,t=Ms(new T.BoxGeometry(r*.38,r*.3,.7),c,.5);t.position.set(Math.cos(a)*r*1.12,Math.sin(a)*r*1.12,0);t.rotation.z=a;g.add(t)}
+ g.add(Ms(new T.TorusGeometry(r*.45,.08,8,30),0x0a0818,.1));return g}
+function globe(){const g=G(),cs=[0xfbbf24,0x2dd4bf,0xa78bfa],P=[];
+ g.add(Ms(new T.SphereGeometry(4.6,32,32),0x1b1346,.15),WF(new T.IcosahedronGeometry(5,2),0x2dd4bf,.45));
+ for(let i=0;i<26;i++){const n=Ms(new T.SphereGeometry(.14,8,8),0xfbbf24,1.2);n.position.set(rnd(-1,1),rnd(-1,1),rnd(-1,1)).normalize().multiplyScalar(5);g.add(n)}
+ for(let i=0;i<3;i++){const p=G(),r=new T.Mesh(new T.TorusGeometry(6.2+i*.7,.04,8,120),new T.MeshBasicMaterial({color:cs[i],transparent:true,opacity:.6})),s=Ms(new T.SphereGeometry(.28,12,12),cs[i],1.5);s.position.x=6.2+i*.7;p.rotation.x=1.1*i;p.add(r,s);g.add(p);P.push(p)}
+ g.position.set(0,.8,-7);return{g,u:st=>{g.rotation.y=st*.15;P.forEach((p,i)=>p.rotation.z=st*(.5+i*.2))}}}
+function chaos(){const g=G(),L=[],Q=[];
+ for(let i=0;i<26;i++){const m=Ms(new T.BoxGeometry(.7,.7,.7),0xfb7185,.7);m.userData={x:rnd(-9.5,-1.5),y:rnd(-4.5,4.5),z:rnd(-6,-2),s:rnd(.5,1.5),p:rnd(0,6)};g.add(m);L.push(m)}
+ for(let i=0;i<20;i++){const m=Ms(new T.BoxGeometry(.7,.7,.7),0x34d399,.7);m.position.set(1.5+(i%5)*1.9,-3.5+((i/5)|0)*2.3,-3);g.add(m);Q.push(m)}
+ return{g,u:st=>{L.forEach(m=>{const d=m.userData;m.position.set(d.x+Math.sin(st*d.s*2+d.p)*1.2,d.y+Math.cos(st*d.s*1.7+d.p)*1.2,d.z);m.rotation.set(st*d.s,st*d.s*1.3,0)});Q.forEach((m,i)=>{m.rotation.y=st*.6;m.scale.y=1+Math.sin(st*2+i)*.25})}}}
+function scanner(){const g=G(),r=new T.Mesh(new T.TorusGeometry(6.4,.06,8,120),new T.MeshBasicMaterial({color:0xfbbf24,transparent:true,opacity:.6})),r2=r.clone(),
+ beam=Ms(new T.BoxGeometry(19,.12,.12),0xfbbf24,2),mg=G(),h=Ms(new T.CylinderGeometry(.12,.12,1.4,10),0x38bdf8,.8);
+ r.position.z=r2.position.z=-5;r2.scale.setScalar(.7);beam.position.z=-1.5;h.position.set(.85,-.85,0);h.rotation.z=.78;
+ mg.add(Ms(new T.TorusGeometry(.9,.13,12,40),0x2dd4bf,.8),h);mg.position.z=1.6;g.add(r,r2,beam,mg);
+ return{g,u:st=>{r.rotation.z=st*.4;r2.rotation.z=-st*.6;beam.position.y=Math.sin(st*.8)*5.2;mg.position.x=Math.sin(st*.7)*7;mg.position.y=Math.sin(st*1.1)*3.6;mg.rotation.z=Math.sin(st)*.3}}}
+function bars(){const g=G(),B=[];
+ for(let i=0;i<17;i++){const m=Ms(new T.BoxGeometry(.8,1,.8),i%2?0x2dd4bf:0xfbbf24,.5);m.position.set(-9+i*1.1,-5,-3.5);g.add(m);B.push(m)}
+ const o=Ms(new T.OctahedronGeometry(1.2),0xa78bfa,.8);o.position.z=-6;o.scale.setScalar(2.2);g.add(o);
+ return{g,u:st=>{B.forEach((m,i)=>{const h=1.5+Math.abs(Math.sin(st*1.2+i*.5))*3.5;m.scale.y=h;m.position.y=-5.4+h/2});o.rotation.set(st*.4,st*.6,0)}}}
+function gears(){const g=G(),a=gear(3,12,0x38bdf8),b=gear(2,9,0xfbbf24),c=gear(2.4,10,0xa78bfa),bot=robot();
+ a.position.set(-8.6,-3.8,-3);b.position.set(8.8,4,-3);c.position.set(8.4,-4.6,-3);bot.position.set(-.3,-.8,1.4);g.add(a,b,c,bot);
+ return{g,u:st=>{a.rotation.z=st*.4;b.rotation.z=-st*.55;c.rotation.z=st*.5;bot.position.y=-.8+Math.sin(st*2)*.25;bot.rotation.y=Math.sin(st*.8)*.5;bot.userData.eyes.forEach(e=>e.scale.y=st%3<.15?.1:1)}}}
+function tunnel(){const g=G(),Q=[];
+ for(let i=0;i<14;i++){const r=new T.Mesh(new T.TorusGeometry(8+(i%2)*.8,.06,8,80),new T.MeshBasicMaterial({color:i%2?0x2dd4bf:0xfbbf24,transparent:true,opacity:.55}));g.add(r);Q.push(r)}
+ return{g,u:st=>Q.forEach((r,i)=>{r.position.z=-3-((i*2.2+st*3)%30.8);r.rotation.z=st*.2+i})}}
+function network(){const g=G(),P=[],pts=[];
+ for(let i=0;i<30;i++){const v=new T.Vector3(rnd(-9,9),rnd(-5,5),rnd(-8,-3)),n=Ms(new T.SphereGeometry(.2,10,10),i%3?0x34d399:0xfbbf24,1.2);P.push(v);n.position.copy(v);g.add(n)}
+ for(let i=0;i<30;i++)for(let j=i+1;j<30;j++)if(P[i].distanceTo(P[j])<5.2)pts.push(P[i],P[j]);
+ g.add(new T.LineSegments(new T.BufferGeometry().setFromPoints(pts),new T.LineBasicMaterial({color:0x7c6df0,transparent:true,opacity:.5})));
+ return{g,u:st=>{g.rotation.y=Math.sin(st*.2)*.25;g.rotation.x=Math.sin(st*.15)*.1}}}
+function coins(){const g=G(),L=[];
+ for(let i=0;i<18;i++){const m=Ms(new T.CylinderGeometry(.7,.7,.14,24),0xfbbf24,.7,{metalness:.9,roughness:.2});m.userData={x:rnd(-9,9),z:rnd(-7,-2.5),s:rnd(.6,1.4),p:rnd(0,12)};g.add(m);L.push(m)}
+ return{g,u:st=>L.forEach(m=>{const d=m.userData;m.position.set(d.x,((st*d.s*1.2+d.p)%13)-6.5,d.z);m.rotation.set(st*d.s*2,st*1.5,1.2)})}}
+const MK=[globe,chaos,scanner,bars,gears,tunnel,network,coins];
+
+/* Scene data: W,H = framing box; c = cards [x,y,w,h,{icon,title,lines,color}]; f = flows between card indexes */
+const row5=(a)=>a.map((q,i)=>[-7.8+i*3.9,-.9,3.2,4.2,{i:q[0],t:q[1],l:q[2],c:q[3]}]);
+const D=[
+{g:"Who we are",t:"One partner for software, AI agents and marketing",x:"Kelvora builds websites, apps and AI agents so a business spends less time on busywork, and runs the marketing too: social media, video editing and motion graphics.",W:20,H:10.4,
+ b:["KELVORA","Less effort. More growth.",0,4.1,14,2.6,C.am],
+ c:row5([["🌐","Web & software",["Websites, apps, custom tools"],C.sk],["🤖","AI agents",["Do the repetitive work for you"],C.vi],["🎬","Creative team",["Social, video, motion graphics"],C.ro],["✅","Verified network",["Businesses that can collaborate"],C.gr],["🔎","Free AI audit",["Find your gaps in minutes"],C.am]]),f:[[0,1],[1,2],[2,3],[3,4]]},
+{g:"The problem",t:"Owners lose hours to work that software can do",x:"Orders sit in chats, leads go unanswered, and nobody has time to post. Kelvora replaces that with agents and a team that handle it for you.",W:19.6,H:8.6,
+ c:[[-5,.2,8,6,{i:"😮‍💨",t:"Business today",l:["✕ Orders tracked by hand","✕ Enquiries answered late","✕ No time for marketing","✕ Tools that don’t talk"],c:C.ro}],[0,.2,1.8,1.8,{t:"VS",c:C.am}],[5,.2,8,6,{i:"🚀",t:"With Kelvora",l:["✔ Agents handle repeat work","✔ Instant replies, 24/7","✔ Creative team ships content","✔ One dashboard for it all"],c:C.gr}]],f:[]},
+{g:"Free AI audit · how it works",t:"Give a business name. Get a full gap report.",x:"Enter a name and, if you have it, a website link. Our Scout agent finds the site, reads it with plain code (free and fast), and the AI writes the report.",W:19,H:11.4,
+ c:[[-6.6,.9,3.4,4.6,{i:"📝",t:"You give",l:["Business name","Website link, optional"],c:C.sk}],[-2.2,.9,3.4,4.6,{i:"🔎",t:"Scout finds it",l:["Searches for the official site if no link"],c:C.vi}],[2.2,.9,3.4,4.6,{i:"🧪",t:"Code reads it",l:["Home, about, contact, services pages"],c:C.te}],[6.6,.9,3.4,4.6,{i:"📄",t:"AI writes report",l:["Gaps + how Kelvora fixes them"],c:C.am}],
+ [0,-4.2,15.2,2,{t:"Safe by design",l:["Public pages only. No LinkedIn scraping, no personal data, and an admin reviews every report before a client sees it."],c:C.gr,k:.8}]],f:[[0,1],[1,2],[2,3]]},
+{g:"Free AI audit · what it checks",t:"Four areas, checked in seconds",x:"The audit measures the website, finds missing software, spots marketing gaps and lists the public team. Every claim comes with a source link.",W:18.6,H:10.4,
+ c:[[-4.3,2.3,8,4,{i:"🌐",t:"Website",l:["✔ Mobile friendly, HTTPS, speed","✔ SEO: title, meta, H1, sitemap","✔ Built on WordPress, Wix or Shopify?"],c:C.sk,k:.9}],[4.3,2.3,8,4,{i:"⚙️",t:"Software gaps",l:["✕ Chatbot?","✕ Booking?","✕ Online payment? Lead form?"],c:C.vi,k:.9}],[-4.3,-2.3,8,4,{i:"📣",t:"Marketing gaps",l:["✕ Instagram, YouTube, Facebook links","✕ Blog freshness","✕ Analytics or Meta Pixel"],c:C.ro,k:.9}],[4.3,-2.3,8,4,{i:"👥",t:"Founder & team",l:["Public professional info only","Each fact has a source link"],c:C.te,k:.9}]],f:[]},
+{g:"From gap to solution",t:"Every gap maps to an agent or a creative service",x:"The report ends with a clear “who will do it” plan: our developers and AI agents for software gaps, our creative team for social, video and motion work.",W:19.4,H:10.2,
+ c:[[-5.2,3,6.6,2.6,{t:"✕ No chatbot",c:C.ro,k:1}],[5.2,3,7.6,2.6,{i:"💬",t:"Lead & FAQ agent",c:C.gr,k:.8}],
+ [-5.2,0,6.6,2.6,{t:"✕ No booking",c:C.ro,k:1}],[5.2,0,7.6,2.6,{i:"📅",t:"Appointment agent",c:C.gr,k:.8}],
+ [-5.2,-3,6.6,2.6,{t:"✕ No reels or video",c:C.ro,k:1}],[5.2,-3,7.6,2.6,{i:"🎬",t:"Video + motion package",c:C.am,k:.8}]],f:[[0,1],[2,3],[4,5]]},
+{g:"Ordering with Kelvora",t:"Request a quote, approve it, track the work",x:"A client asks for a service, Kelvora Support opens a chat, the admin sends a quote, and once approved the order moves with a live progress bar.",W:20,H:8.6,
+ c:row5([["💬","Request quote",["Pick a service on Store or Agents"],C.sk],["🧾","Quote sent",["Amount, due date and notes in chat"],C.am],["✅","Approve & start",["Client accepts in one tap"],C.gr],["📊","Live progress",["Status and progress bar"],C.vi],["💳","Paid & delivered",["Payment request, CSV export"],C.te]]).map(q=>{q[1]=0;return q}),f:[[0,1],[1,2],[2,3],[3,4]]},
+{g:"The platform",t:"Verified businesses, an admin panel and a chatbot",x:"Admins approve each business, which gets a profile and a widget link for its own site. The more verified businesses, the better the partner matches.",W:20,H:11,
+ c:[[-6.4,.8,5.8,5.4,{i:"🏢",t:"Verified businesses",l:["Approved by admin","Widget link for their site","Profile visible to partners"],c:C.gr}],[0,.8,5.8,5.4,{i:"🤝",t:"Partner matching",l:["See who can collaborate","Grows with every business"],c:C.vi}],[6.4,.8,5.8,5.4,{i:"🛠️",t:"Admin panel",l:["Orders, inquiries, stats","Approvals, quick replies"],c:C.am}],
+ [0,-4.3,15,1.7,{i:"",t:"Chatbot on every page",l:["Predefined keywords and replies, bottom right"],c:C.te,k:.8}]],f:[[0,1],[1,2]]},
+{g:"What’s next",t:"Helping businesses raise money, not only save time",x:"Soon a business will learn how much to raise, which investors or VCs fit it, and how to reach out. Same goal: remove effort, grow profit.",W:19,H:10.4,
+ b:["KELVORA","Less effort. More growth.",0,3.9,13,2.4,C.te],
+ c:[[-6,-1.7,5.4,4,{i:"💰",t:"How much to raise",l:["Sized to the business"],c:C.am}],[0,-1.7,5.4,4,{i:"🎯",t:"Who to approach",l:["Investors and VCs that fit"],c:C.vi}],[6,-1.7,5.4,4,{i:"📬",t:"How to reach out",l:["Steps and message drafts"],c:C.sk}]],f:[[0,1],[1,2]]}
+];
+
+const scenes=D.map(d=>{
+  const root=new T.Group();root.visible=false;sc.add(root);
+  const cs=d.c.map((q,i)=>{const g=card(q[0],q[1],q[2],q[3],{i:q[4].i,t:q[4].t,l:q[4].l,c:q[4].c,k:q[4].k});g.scale.setScalar(1e-4);root.add(g);return{g,y:q[1],d:.25+i*.14,i}});
+  const fl=(d.f||[]).map((p,j)=>{const a=d.c[p[0]],b=d.c[p[1]],dx=(a[2]+b[2])/2,A=new T.Vector3(a[0]+a[2]/2+.1,a[1],.5),B=new T.Vector3(b[0]-b[2]/2-.1,b[1],.5);
+    const g=flow(A,B,a[4].c);g.visible=false;g.userData.d=.5+p[0]*.14;root.add(g);return g});
+  let bn=null;if(d.b){bn=banner(d.b[0],d.b[1],d.b[2],d.b[3],d.b[4],d.b[5],d.b[6]);bn.scale.setScalar(1e-4);root.add(bn)}
+  const mo=MK[D.indexOf(d)]();root.add(mo.g);
+  return{root,cs,fl,bn,W:d.W,H:d.H,mu:mo.u,mg:mo.g}
+});
+
+/* UI */
+const N=D.length,DUR=9000;let cur=0,mode="auto",playing=false,t0=0,pt=0,px=0,py=0,tx=0,ty=0,started=false;
+const dots=$('#dots');D.forEach((_,i)=>{const a=document.createElement('a');a.tabIndex=0;a.setAttribute('aria-label','Scene '+(i+1));a.onclick=()=>go(i);a.onkeydown=e=>{if(e.key=="Enter")go(i)};dots.appendChild(a)});
+function go(i){
+  cur=cl(i,0,N-1);scenes.forEach((s,k)=>s.root.visible=k===cur);t0=performance.now();pt=0;
+  const d=D[cur],cap=$('#cap');$('#tg').textContent=d.g;$('#tt').textContent=d.t;$('#tx').textContent=d.x;
+  cap.classList.remove('in');void cap.offsetWidth;cap.classList.add('in');
+  $('#num').textContent=String(cur+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');
+  [...dots.children].forEach((a,k)=>a.classList.toggle('on',k===cur));fit();
+}
+function setMode(m){mode=m;document.body.classList.toggle('manual',m=="manual");playing=m=="auto";$('#pp').textContent='⏸ Pause';
+  document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.m==m))}
+function start(m){setMode(m);$('#splash').classList.add('off');started=true;go(0)}
+$('#sa').onclick=()=>start('auto');$('#sm').onclick=()=>start('manual');
+document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>{setMode(b.dataset.m);t0=performance.now()});
+$('#pv').onclick=()=>go(cur-1);$('#nx').onclick=()=>go(cur+1);$('#rp').onclick=()=>go(cur);
+$('#pp').onclick=()=>{playing=!playing;$('#pp').textContent=playing?'⏸ Pause':'▶ Play';if(playing)t0=performance.now()-pt};
+addEventListener('keydown',e=>{if(!started)return;if(e.key=="ArrowRight")go(cur+1);if(e.key=="ArrowLeft")go(cur-1)});
+addEventListener('pointermove',e=>{tx=(e.clientX/innerWidth-.5)*2;ty=(e.clientY/innerHeight-.5)*2});
+
+function fit(){
+  const w=innerWidth,h=innerHeight,a=w/h,s=scenes[cur],th=Math.tan(20*Math.PI/180);
+  R.setPixelRatio(Math.min(devicePixelRatio,2));R.setSize(w,h,false);cam.aspect=a;cam.updateProjectionMatrix();
+  s.dist=Math.max(s.H/2/th,s.W/2/(th*a))*1.1;s.off=-s.H*(a<.8?.2:.13);
+}
+addEventListener('resize',fit);
+
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function frame(now){
+  requestAnimationFrame(frame);
+  const s=scenes[cur];if(!s.dist)fit();
+  const st=(now-t0)/1000;
+  if(playing&&started){pt=now-t0;if(pt>=DUR){if(cur<N-1)go(cur+1);else{playing=false;pt=DUR}}}
+  $('#bar i').style.width=(mode=="auto"?cl(pt/DUR,0,1)*100:(cur+1)/N*100)+'%';
+  px+=(tx-px)*.05;py+=(ty-py)*.05;
+  cam.position.set(px*1.6,s.off-py*1,s.dist);cam.lookAt(0,s.off,0);
+  s.cs.forEach(c=>{const p=reduce?1:eb(cl((st-c.d)/.7,0,1));c.g.scale.setScalar(Math.max(1e-4,p));c.g.position.y=c.y+(reduce?0:Math.sin(st*1.5+c.i)*.1)});
+  if(s.bn)s.bn.scale.setScalar(Math.max(1e-4,eb(cl((st-.1)/.7,0,1))));
+  s.fl.forEach(g=>{g.visible=st>g.userData.d;g.userData.run(st)});
+  s.mg.scale.setScalar(Math.max(1e-4,eb(cl(st/1.4,0,1))));s.mu(st);stars.rotation.z=now*.00002;
+  R.render(sc,cam);
+}
+fit();requestAnimationFrame(frame);
+})();
+</script></body></html>
